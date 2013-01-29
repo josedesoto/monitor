@@ -1,0 +1,192 @@
+{{response.files.append(URL(r=request,c='static',f='css/demo_table.css'))}}
+{{response.files.append(URL(r=request,c='static',f='js/jquery.dataTables.min.js'))}}
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{extend 'layout.html'}}
+
+
+{{block right_sidebar}}
+	
+	<div class="alert alert-info">
+		 <div id="server_id"></div>
+    	
+	<SELECT  id="target_plugins" name="plugins">
+
+	</SELECT>
+
+	</div>
+	<div id="button_plugins"></div>
+
+{{end}}
+
+
+
+<div class="alert alert-info">
+<!-- <a href="#nil" onclick="ajax('check_config',[],'target1');">Click here, if you want to check the configuration</a> -->
+<a href="{{=URL(r=request,c='default',f='check_config')}}">Click here, if you want to check the configuration</a>
+
+
+</div>
+
+
+
+
+
+<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="tablefile" >
+    <thead>
+        <tr>
+        <th>Server Name</th>
+        <th>Project Name</th>
+        <th>Time Zone</th>
+	<th>Acctions</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+    </tbody>
+</table>
+
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+		<h3 id="myModalLabel">Server XXX</h3>
+		    <div class="btn-group">
+			<div id="button_modals" ></div>
+			    
+
+		    </div>
+	</div>
+	<div class="modal-body">
+		<div id="target_graphs"></div>
+	</div>
+
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	</div>
+</div>
+
+
+
+
+<style type="text/css">
+body .modal {
+	width: 50%; /* desired relative width */
+	left: 25%; /* (100%-width)/2 */
+	margin: auto auto auto auto; /* place center *
+	}
+ </style>
+
+
+
+<script>
+
+
+
+
+
+	$(document).ready(function() {
+		  
+		    $('#tablefile').dataTable( {
+			
+			"sDom": "<'row'<'span9'l><'span9'f>r>t<'row'<'span9'i><'span9'p>>",
+			"aaSorting": [[ 2, "desc" ]],
+			"bPaginate": false,
+			"bLengthChange": false,
+			"bFilter": true,
+			"bInfo": false,
+			"bAutoWidth": false
+		    });
+	
+		$.extend( $.fn.dataTableExt.oStdClasses, {
+    		"sWrapper": "dataTables_wrapper form-inline"
+		});
+		
+		loadFiles();
+	
+	});
+
+
+function loadFiles()
+{
+	request='{{=URL(r=request,f="show_servers.json")}}'
+		
+	jQuery.getJSON(request,
+        function(json){
+		$('#tablefile').dataTable().fnClearTable();
+		jQuery.each(json.result, function(i, result){ 
+		jQuery("#").append(	
+		$('#tablefile').dataTable().fnAddData([
+		    result.f_name,
+		    result.f_project,
+		    result.f_time_zone,
+		    '<button class="btn btn-mini" type="button" onclick=load_plugin_project('+result.id+',"serverXXX")>Show Options</button>',])
+		);})});
+}
+
+
+function load_plugin_project(server_id, server_name)
+{
+
+	request='{{=URL("show_plugins.json")}}'
+	request=request+'/'+server_id
+
+	jQuery.getJSON(request,
+        function(json){
+
+		$("#target_plugins .plugins").remove();
+		jQuery.each(json.result, function(i, result){ 
+		jQuery("#target_plugins").append(	
+		$('<option class="plugins"></option>').val(result).html(result)
+
+		);})});
+
+
+	$("#server_id").append("Option list for: "+server_name);
+
+	//Create the button inthe index to create the modal and the graph
+	$("#button_plugins").append('<button href="#myModal" role="button" data-toggle="modal" class="btn" type="button" onclick=show_graph('+server_id+');>Show Graphs</button>');
+
+	//Create the buttons in the modal to choose day, hour, week, etc
+	buttons='<button onclick=show_graph('+server_id+',"hour"); class="btn">H</button>'
+	buttons+='<button onclick=show_graph('+server_id+',"day"); class="btn">D</button>'
+	buttons+='<button onclick=show_graph('+server_id+',"week"); class="btn">W</button>'
+	buttons+='<button onclick=show_graph('+server_id+',"month"); class="btn">M</button>'
+	buttons+='<button onclick=show_graph('+server_id+',"year"); class="btn">Y</button>'
+	$("#button_modals").append(buttons);
+}
+
+
+function show_graph(server_id, timespan)
+{
+
+	action='show_plugin'
+	plugin= $("select[name=plugins]").val();
+
+	request='{{=URL("show_plugin.json")}}'
+	request=request+"?action="+action
+	request=request+"&plugin="+plugin
+	request=request+"&host="+server_id
+	request=request+"&timespan="+timespan
+	
+
+	jQuery.getJSON(request,
+        function(json){
+
+		$("#target_graphs .graphs").remove();
+		jQuery.each(json.result, function(i, result){ 
+		jQuery("#target_graphs").append(	
+
+		'<p><p><img id="theImg" class="graphs" src={{=URL("show_graph")}}'+result+'&server_id='+server_id+' >'
+
+		);})});
+
+}
+
+
+
+</script>

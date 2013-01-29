@@ -1,0 +1,17 @@
+
+#collection.cgi have been modify in the line 906:
+	print STDOUT header (-Content_Type => 'image/png');
+	action_show_graph ($Args->{'host'},
+	$Args->{'plugin'}, $Args->{'plugin_instance'},
+	$Args->{'type'}, $Args->{'type_instance'});
+	return (0);
+
+	FOR
+
+  	action_show_graph ($Args->{'host'},
+	$Args->{'plugin'}, $Args->{'plugin_instance'},
+	$Args->{'type'}, $Args->{'type_instance'});
+	return (0);
+
+
+
