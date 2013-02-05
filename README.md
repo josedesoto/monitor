@@ -41,4 +41,36 @@ monitor is a web application that allows to view rrd datacollections that have b
 	#http://localhost:8000/monitor/default/check_config
 
 
+##How to install Collectd in Debian?
+
+	#apt-get update
+	#apt-get install librrd-dev rrdtool build-essential
+	#wget http://collectd.org/files/collectd-5.0.4.tar.gz
+
+	#tar xzf collectd-5.0.4.tar.gz
+	#cd collectd-5.0.4
+	#./configure
+	#make all install
+
+	To add collectd daemon to start up initd:
+	#insserv -v collectd
+
+	Information about the installation:
+		Inhalation directory: /opt/collectd/
+		Config file: /opt/collectd/etc/collectd.conf
+		Data dir: /opt/collectd/var/lib/collectd
+
+
+##Script collectd.sh
+In private/script/bash you can find this script. You can use it for the start up init.d
+
+
+##Script collectd_sync.sh
+In private/script/bash you can find this script. You can use to sync the data from the clients to the web application. This script have to be in all server you install collectd daemon. To sync the data to the web application you have to use scheduled application. In cron for example:
+
+	#*/30 * * * * PATH_TO_SCRIPT/collectd_sync.sh >> /dev/null
+
+
+
+
 

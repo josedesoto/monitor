@@ -13,7 +13,7 @@ from collection import Collection
 from server import Server  
 
 
-
+@auth.requires_login()
 def index():
     """
     example action using the internationalization operator T and flash

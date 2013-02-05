@@ -8,3 +8,6 @@ errors/
 cache/
 sessions/
 databases/
+
+#Files exclude
+controllers/appadmin.py

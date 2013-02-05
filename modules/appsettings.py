@@ -17,12 +17,30 @@ settings.title = 'Monitor'
 settings.subtitle = 'powered by web2py'
 settings.author = 'Jose de Soto'
 settings.author_email = 'josedesoto@gmail.com'
-settings.keywords = 'monitor, statistics'
-settings.description = ''
+settings.keywords = 'monitor, statistics, server'
+settings.description = 'Web application that allows to view rrd datacollections that have been created by collectd.'
 settings.security_key = 'd110e72d-83fb-40bc-bb1c-a62e324c80bc'
-settings.login_method = 'local' #local or ldap
+settings.login_method = 'ldap' #local, ldap or CAS
 settings.login_config = ''
 settings.plugins = []
+
+#########################################
+#if LDAP configuration:			#
+#########################################
+settings.ldap_server = ''
+settings.ldap_port = ''
+settings.ldap_base_dn =  ''
+
+#########################################
+#if CAS configuration:			#
+#########################################
+settings.cas_provider='https://cas.goldengekko.com/cas/default/user/cas'
+#by default, change if needed
+settings.cas_actions_login='login'
+settings.cas_actions_validate='validate'
+settings.cas_actions_logout='logout'
+
+
 #########################################
 # PATH TO PERL FILE COMMAND		#
 # by default: /usr/bin/perl  		#
