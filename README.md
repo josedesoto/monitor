@@ -2,7 +2,14 @@
 monitor is a web application that allows to view rrd datacollections that have been created by collectd.
 
 1- Monitor allow you to create group of server by projects.
-2- Monitor allow to have different time zone for each server.
+2- Monitor allow to have different time zone for each server. Good, if you have distributed servers around the world.
+
+
+## Screenshots:
+
+![Image](https://github.com/josedesoto/monitor/blob/master/static/images/monitor_app/monitor1.png?raw=true)
+![Image](https://github.com/josedesoto/monitor/blob/master/static/images/monitor_app/monitor2.png?raw=true)
+![Image](https://github.com/josedesoto/monitor/blob/master/static/images/monitor_app/monitor3.png?raw=true)
 
 
 ## How to install in Linux, windows or Mac:
@@ -29,6 +36,13 @@ monitor is a web application that allows to view rrd datacollections that have b
 5 - Open the URL: http://localhost:8000/monitor
 
 
+## More configuration
+
+For more configurations chenck the file: modules/appsettings.py
+
+In this file you can configure the aplication to use Mysql or SQLite and the login system (local, ldap or CAS).
+
+
 ## Dependecies:
 
 	In debian 6 or ubuntu 11:
@@ -41,7 +55,12 @@ monitor is a web application that allows to view rrd datacollections that have b
 	#http://localhost:8000/monitor/default/check_config
 
 
-##How to install Collectd in Debian?
+## Example to test it:
+
+	In the folder static/server_example you have some RRDD to start playing...
+
+
+## How to install Collectd in Debian?
 
 	#apt-get update
 	#apt-get install librrd-dev rrdtool build-essential
@@ -61,16 +80,13 @@ monitor is a web application that allows to view rrd datacollections that have b
 		Data dir: /opt/collectd/var/lib/collectd
 
 
-##Script collectd.sh
+## Script collectd.sh
 In private/script/bash you can find this script. You can use it for the start up init.d
 
 
-##Script collectd_sync.sh
+## Script collectd_sync.sh
 In private/script/bash you can find this script. You can use to sync the data from the clients to the web application. This script have to be in all server you install collectd daemon. To sync the data to the web application you have to use scheduled application. In cron for example:
 
 	#*/30 * * * * PATH_TO_SCRIPT/collectd_sync.sh >> /dev/null
-
-
-
 
 

@@ -96,8 +96,6 @@ class Collection:
 	action=action
 	PERL=settings.perl_file
 	COLLECTION=settings.collection_file	
-	
-	#http://127.0.0.1:8888/cgi-bin/collection.cgi?action=show_plugin;host=gg-app01.osl.basefarm.net;timespan=day;plugin=cpu
 
 	p=subprocess.Popen([PERL, COLLECTION,\
 	        "action="+action,\

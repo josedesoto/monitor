@@ -1,6 +1,14 @@
 {{extend 'layout.html'}}
 <h2>{{=T( request.args(0).replace('_',' ').capitalize() )}}</h2>
 <div id="web2py_user_form">
+
+{{if request.args(0)=='register':}}
+
+	<b>This page is to create the user to access to the system. After the use is created, please set settings.check_if_user=False </b>
+	<br>
+
+{{pass}}
+
 {{
 if request.args(0)=='login':
     if not 'register' in auth.settings.actions_disabled:
@@ -10,6 +18,7 @@ if request.args(0)=='login':
         form.add_button(T('Lost Password'),URL(args='request_reset_password'),_class='btn')
     pass
 pass
+
 =form
 }}
 </div>

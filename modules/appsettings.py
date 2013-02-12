@@ -4,6 +4,9 @@ from prettyexception import ErrorHTTP
 settings = Storage()
 
 
+#Check if user on the startup. Set to False if you have user on the system
+settings.check_if_user=True
+
 #mysql or sqlite
 settings.database='sqlite'
 
@@ -20,7 +23,7 @@ settings.author_email = 'josedesoto@gmail.com'
 settings.keywords = 'monitor, statistics, server'
 settings.description = 'Web application that allows to view rrd datacollections that have been created by collectd.'
 settings.security_key = 'd110e72d-83fb-40bc-bb1c-a62e324c80bc'
-settings.login_method = 'ldap' #local, ldap or CAS
+settings.login_method = 'local' #local, ldap or CAS
 settings.login_config = ''
 settings.plugins = []
 
@@ -29,12 +32,51 @@ settings.plugins = []
 #########################################
 settings.ldap_server = ''
 settings.ldap_port = ''
+settings.ldap_mode = 'uid_r' #uid, cn, dominio
+settings.ldap_secure = True #Maybe you need openssl
+settings.ldap_cert_path = ''
+settings.ldap_cert_file = ''
 settings.ldap_base_dn =  ''
+settings.ldap_allowed_groups = [""]
+settings.ldap_group_dn = ''
+settings.ldap_group_name_attrib = 'cn'
+settings.ldap_group_member_attrib = 'memberUid'
+settings.ldap_group_filterstr = 'objectClass=*'
+
+##################################################################################
+#	 #Example Apache LDAP#
+#
+#	 AuthType Basic
+#        AuthBasicProvider ldap
+#        AuthName "GG LDAP authentication"
+#        AuthLDAPURL ldaps://ldap.mydomain.com/ou=people,dc=mydomain,dc=com?uid
+#        AuthLDAPGroupAttribute memberUid
+#        AuthLDAPGroupAttributeIsDN off
+#        AuthzLDAPAuthoritative on
+#        Require ldap-group cn=Monitor,cn=groups,dc=mydomain,dc=com
+#
+#	#The same LDAP aut in MONITOR web application
+#	
+#	settings.ldap_server = 'ldap.mydomain.com'
+#	settings.ldap_port = '636'
+#	settings.ldap_mode = 'uid_r' #uid, cn, dominio
+#	settings.ldap_secure = True #Maybe you need openssl
+#	settings.ldap_cert_path = ''
+#	settings.ldap_cert_file = ''
+#	settings.ldap_base_dn =  'ou=people,dc=mydomain,dc=com'
+#	settings.ldap_allowed_groups = ["Monitor"]
+#	settings.ldap_group_dn = 'cn=groups,dc=mydomain,dc=com'
+#	settings.ldap_group_name_attrib = 'cn'
+#	settings.ldap_group_member_attrib = 'memberUid'
+#	settings.ldap_group_filterstr = 'objectClass=*'
+#	
+####################################################################################
+
 
 #########################################
 #if CAS configuration:			#
 #########################################
-settings.cas_provider='https://cas.goldengekko.com/cas/default/user/cas'
+settings.cas_provider='https://mydomain.com/cas/default/user/cas'
 #by default, change if needed
 settings.cas_actions_login='login'
 settings.cas_actions_validate='validate'

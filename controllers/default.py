@@ -22,6 +22,7 @@ def index():
     if you need a simple wiki simple replace the two lines below with:
     return auth.wiki()
     """
+    
 
     if request.env.http_x_forwarded_host:
 	http_host = request.env.http_x_forwarded_host.split(':',1)[0]
@@ -103,6 +104,7 @@ def user():
         @auth.requires_permission('read','table name',record_id)
     to decorate functions that need access control
     """
+
     return dict(form=auth())
 
 

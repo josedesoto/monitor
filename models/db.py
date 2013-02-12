@@ -39,12 +39,26 @@ from gluon.tools import Auth, Crud, Service, PluginManager, prettydate
 
 
 
-if settings.login_method == 'local':
+if settings.login_method == 'local' or settings.login_method == 'ldap':
+	
 	auth = Auth(db)
 
 elif settings.login_method == 'ldap':
 
-	print "not yet"
+
+	from gluon.contrib.login_methods.ldap_auth import ldap_auth
+	auth.settings.login_methods=[(ldap_auth(
+	mode=settings.ldap_mode, 
+	secure=settings.ldap_secure, 
+	server=settings.ldap_server, port=settings.ldap_port, 
+	base_dn=settings.ldap_base_dn, 
+	allowed_groups = settings.ldap_allowed_groups,
+	group_dn = settings.ldap_group_dn,
+	group_name_attrib = settings.ldap_group_name_attrib,
+	group_member_attrib = settings.ldap_group_member_attrib,
+	group_filterstr = settings.ldap_group_filterstr
+
+	))]
 
 
 elif settings.login_method == 'CAS':
@@ -67,11 +81,16 @@ auth.settings.create_user_groups=False
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = False
-auth.settings.actions_disabled=['register','change_password','request_reset_password','retrieve_username']
+
+if settings.login_method == 'CAS' or settings.login_method == 'ldap':
+	auth.settings.actions_disabled.append('register')
+	auth.settings.actions_disabled.append('change_password')
+
+auth.settings.actions_disabled.append('request_reset_password')
+auth.settings.actions_disabled.append('retrieve_username')
 
 
-
-#########################################################################
+##########################################################################
 ## Define your tables below (or better in another model file) for example
 ##
 ## >>> db.define_table('mytable',Field('myfield','string'))
@@ -86,7 +105,7 @@ auth.settings.actions_disabled=['register','change_password','request_reset_pass
 ## >>> db.mytable.insert(myfield='value')
 ## >>> rows=db(db.mytable.myfield=='value').select(db.mytable.ALL)
 ## >>> for row in rows: print row.id, row.myfield
-#########################################################################
+##########################################################################
 
 ## after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
@@ -105,9 +124,26 @@ db.define_table('t_project_archive',db.t_project,Field('current_record','referen
 db.define_table('t_server',
     Field('f_name', notnull=True, type='string', label=T('Name')),
     Field('f_project', notnull=True, type='reference t_project', label=T('Project')),
-    Field('f_path_rrd',notnull=True,  type='string', label=T('Path Rrd')),
-    Field('f_time_zone',notnull=True,  type='string', label=T('Time Zone')),
+    Field('f_path_rrd', notnull=True,  type='string', label=T('Path Rrd')),
+    Field('f_time_zone', notnull=True, type="list:string", label=T('Time Zone')),
     format='%(f_name)s',
     migrate=settings.migrate)
 
 db.define_table('t_server_archive',db.t_server,Field('current_record','reference t_server',readable=False,writable=False))
+
+group_time_sone = [('GMT-14'),('GMT-13'),('GMT-12'),('GMT-11'),('GMT-10'),('GMT-9'),('GMT-8'),('GMT-7'),('GMT-6'),('GMT-5'),('GMT-4'),('GMT-3'),('GMT-2'), ('GMT-1'),('GMT0'),('GMT+1'),('GMT+2'),('GMT+3'),('GMT+4'),('GMT+5'),('GMT+6'),('GMT+7'),('GMT+8'),('GMT+9'),('GMT+10'),('GMT+11'),('GMT+12')]
+db.t_server.f_time_zone.requires = IS_IN_SET(group_time_sone, multiple=False)
+
+####################### This code is fo rthe register page #########################################
+if settings.check_if_user and settings.login_method == 'local' and request.args(0) != 'register':
+	check_if_empty = db(db.auth_user.id>0).select()
+    	if not check_if_empty:
+		redirect(URL(c='default', f='user', args='register'))
+	else:
+		auth.settings.actions_disabled.append('register')
+	
+
+if not settings.check_if_user:
+	auth.settings.actions_disabled.append('register')
+####################### This code is fo rthe register page #########################################
+	
