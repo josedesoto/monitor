@@ -1,5 +1,5 @@
 ## Description: 
-**monitor** is a web application that allows to view rrd datacollections that have been created by collectd.
+**monitor** is a web application that allows to view rrd datacollections that have been created by collectd (more info: http://collectd.org)
 
 1- Monitor allow you to create group of server by projects.
 
