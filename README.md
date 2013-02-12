@@ -73,9 +73,11 @@ In the folder static/server_example you have some RRDD to start playing...
 	#make all install
 
 To add collectd daemon to start up initd:
+
 	#insserv -v collectd
 
 Information about the installation:
+
 		Inhalation directory: /opt/collectd/
 		Config file: /opt/collectd/etc/collectd.conf
 		Data dir: /opt/collectd/var/lib/collectd
