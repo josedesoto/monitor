@@ -5,6 +5,9 @@
 
 2- Monitor allow to have different time zone for each server. Good, if you have distributed servers around the world.
 
+3- Ready to talk with Mysql or SQLite, see the config file: modules/appsettings.py
+
+4- Compatible with local authentication, LDAD and CASS, check the file: modules/appsettings.py
 
 ## Screenshots:
 
