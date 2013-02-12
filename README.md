@@ -1,7 +1,8 @@
 ## Description: 
-monitor is a web application that allows to view rrd datacollections that have been created by collectd.
+**monitor** is a web application that allows to view rrd datacollections that have been created by collectd.
 
 1- Monitor allow you to create group of server by projects.
+
 2- Monitor allow to have different time zone for each server. Good, if you have distributed servers around the world.
 
 
@@ -45,19 +46,19 @@ In this file you can configure the aplication to use Mysql or SQLite and the log
 
 ## Dependecies:
 
-	In debian 6 or ubuntu 11:
+In debian 6 or ubuntu 11:
 	#apt-get install perl libjson-perl librrds-perl libhtml-entities-numbered-perl libhtml-element-extended-perl
 
 
 ## How to check the installations:
 
-	In your browser type:
+In your browser type:
 	#http://localhost:8000/monitor/default/check_config
 
 
 ## Example to test it:
 
-	In the folder static/server_example you have some RRDD to start playing...
+In the folder static/server_example you have some RRDD to start playing...
 
 
 ## How to install Collectd in Debian?
@@ -71,10 +72,10 @@ In this file you can configure the aplication to use Mysql or SQLite and the log
 	#./configure
 	#make all install
 
-	To add collectd daemon to start up initd:
+To add collectd daemon to start up initd:
 	#insserv -v collectd
 
-	Information about the installation:
+Information about the installation:
 		Inhalation directory: /opt/collectd/
 		Config file: /opt/collectd/etc/collectd.conf
 		Data dir: /opt/collectd/var/lib/collectd
