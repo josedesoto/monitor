@@ -49,12 +49,14 @@ In this file you can configure the aplication to use Mysql or SQLite and the log
 Monitor is based in http://git.verplant.org/?p=collectd.git;a=blob;hb=master;f=contrib/collection.cgi for this reason need some extra packages.
 
 In debian 6 or ubuntu 11:
+	
 	#apt-get install perl libjson-perl librrds-perl libhtml-entities-numbered-perl libhtml-element-extended-perl
 
 
 ## How to check the installations:
 
 In your browser type:
+	
 	#http://localhost:8000/monitor/default/check_config
 
 
