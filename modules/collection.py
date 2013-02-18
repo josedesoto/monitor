@@ -21,7 +21,7 @@ class Collection:
 	path_rrd=os.path.split(path_rrd)[0]
 	start=str(start)
 	end=str(end)
-	time_zone=str(time_zone)
+	time_zone=time_zone[0]
 	PERL=settings.perl_file
 	COLLECTION=settings.collection_file	
 	
@@ -32,6 +32,7 @@ class Collection:
 	    plugin_instance = str(plugin_instance)
       
 	p=None
+
 	if plugin_instance==None:
 	    p=subprocess.Popen(["env", "TZ="+time_zone, PERL, COLLECTION,\
 		                "action="+action,\
@@ -55,9 +56,6 @@ class Collection:
 		                "end="+end,
 		                "path_rrd="+path_rrd]\
 		                ,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-     
-     
-	#Shell=False
 	
 	
 	stdout, stderr=p.communicate()

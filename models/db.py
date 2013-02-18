@@ -131,7 +131,95 @@ db.define_table('t_server',
 
 db.define_table('t_server_archive',db.t_server,Field('current_record','reference t_server',readable=False,writable=False))
 
-group_time_sone = [('GMT-14'),('GMT-13'),('GMT-12'),('GMT-11'),('GMT-10'),('GMT-9'),('GMT-8'),('GMT-7'),('GMT-6'),('GMT-5'),('GMT-4'),('GMT-3'),('GMT-2'), ('GMT-1'),('GMT0'),('GMT+1'),('GMT+2'),('GMT+3'),('GMT+4'),('GMT+5'),('GMT+6'),('GMT+7'),('GMT+8'),('GMT+9'),('GMT+10'),('GMT+11'),('GMT+12')]
+group_time_sone = [('Africa/Cairo'),\
+('Africa/Casablanca'),\
+('Africa/Johannesburg'),\
+('Africa/Lagos'),\
+('Africa/Nairobi'),\
+('Africa/Windhoek'),\
+('America/Anchorage'),\
+('America/Bogota'),\
+('America/Buenos_Aires'),\
+('America/Caracas'),\
+('America/Chicago'),\
+('America/Chihuahua'),\
+('America/Denver'),\
+('America/Godthab'),\
+('America/Guatemala'),\
+('America/Halifax'),\
+('America/La_Paz'),\
+('America/Los_Angeles'),\
+('America/Manaus'),\
+('America/Mexico_City'),\
+('America/Montevideo'),\
+('America/New_York'),\
+('America/Phoenix'),\
+('America/Regina'),\
+('America/Santiago'),\
+('America/Sao_Paulo'),\
+('America/St_Johns'),\
+('America/Tijuana'),\
+('Asia/Amman'),\
+('Asia/Baghdad'),\
+('Asia/Baku'),\
+('Asia/Bangkok'),\
+('Asia/Beirut'),\
+('Asia/Calcutta'),\
+('Asia/Colombo'),\
+('Asia/Dhaka'),\
+('Asia/Dubai'),\
+('Asia/Irkutsk'),\
+('Asia/Jerusalem'),\
+('Asia/Kabul'),\
+('Asia/Karachi'),\
+('Asia/Katmandu'),\
+('Asia/Krasnoyarsk'),\
+('Asia/Novosibirsk'),\
+('Asia/Rangoon'),\
+('Asia/Riyadh'),\
+('Asia/Seoul'),\
+('Asia/Shanghai'),\
+('Asia/Singapore'),\
+('Asia/Taipei'),\
+('Asia/Tashkent'),\
+('Asia/Tehran'),\
+('Asia/Tokyo'),\
+('Asia/Vladivostok'),\
+('Asia/Yakutsk'),\
+('Asia/Yekaterinburg'),\
+('Asia/Yerevan'),\
+('Atlantic/Azores'),\
+('Atlantic/Cape_Verde'),\
+('Atlantic/Reykjavik'),\
+('Atlantic/South_Georgia'),\
+('Australia/Adelaide'),\
+('Australia/Brisbane'),\
+('Australia/Darwin'),\
+('Australia/Hobart'),\
+('Australia/Perth'),\
+('Australia/Sydney'),\
+('Etc/GMT+12'),\
+('Etc/GMT+3'),\
+('Etc/GMT+5'),\
+('Etc/GMT-3'),\
+('Europe/Berlin'),\
+('Europe/Budapest'),\
+('Europe/Istanbul'),\
+('Europe/Kiev'),\
+('Europe/London'),\
+('Europe/Minsk'),\
+('Europe/Moscow'),\
+('Europe/Paris'),\
+('Europe/Warsaw'),\
+('Indian/Mauritius'),\
+('Pacific/Apia'),\
+('Pacific/Auckland'),\
+('Pacific/Fiji'),\
+('Pacific/Guadalcanal'),\
+('Pacific/Honolulu'),\
+('Pacific/Port_Moresby'),\
+('Pacific/Tongatapu')]
+
 db.t_server.f_time_zone.requires = IS_IN_SET(group_time_sone, multiple=False)
 
 ####################### This code is fo rthe register page #########################################

@@ -40,13 +40,6 @@
 5 - Open the URL: http://localhost:8000/monitor
 
 
-## More configuration
-
-For more configurations chenck the file: modules/appsettings.py
-
-In this file you can configure the aplication to use Mysql or SQLite and the login system (local, ldap or CAS).
-
-
 ## Dependecies:
 
 Monitor is based in http://git.verplant.org/?p=collectd.git;a=blob;hb=master;f=contrib/collection.cgi for this reason need some extra packages.
@@ -54,6 +47,13 @@ Monitor is based in http://git.verplant.org/?p=collectd.git;a=blob;hb=master;f=c
 In debian 6 or ubuntu 11:
 	
 	#apt-get install perl libjson-perl librrds-perl libhtml-entities-numbered-perl libhtml-element-extended-perl
+
+
+## More configuration
+
+For more configurations chenck the file: modules/appsettings.py
+
+In this file you can configure the aplication to use Mysql or SQLite and the login system (local, ldap or CAS).
 
 
 ## How to check the installations:
