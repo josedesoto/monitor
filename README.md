@@ -39,6 +39,8 @@
 
 5 - Open the URL: http://localhost:8000/monitor
 
+6 - If you are using local login (settings.login_method='local') The application will show a registration page. This is the user you will use to access to the application.
+
 
 ## Dependecies:
 

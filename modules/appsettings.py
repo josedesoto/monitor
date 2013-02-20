@@ -15,7 +15,7 @@ settings.database_name='MY_DATABASE_NAME' #First: create database MY_DATABASE_NA
 settings.database_user='MY_DATABASE_USER'
 settings.database_pass='MY_DATABASE_PASS'
 settings.database_uri='MY_DATABASE_URI'
-settings.migrate = True
+settings.migrate = True #If you have the dababase and tables aready created, please set this value to: False
 settings.title = 'Monitor'
 settings.subtitle = 'powered by web2py'
 settings.author = 'Jose de Soto'
@@ -96,8 +96,6 @@ settings.collection_file=current.request.folder+"private/scripts/perl/collection
 
 
 
-
-
 if settings.database=='sqlite':
 
 	#To connect a SQLITE database. No extra configuration need to be done
@@ -109,8 +107,10 @@ elif settings.database=='mysql':
 
 
 
-#We check if we have defined perl and colelction
 
+
+
+#We check if we have defined perl and colelction
 class check_config:
 
     @staticmethod

@@ -222,7 +222,7 @@ group_time_sone = [('Africa/Cairo'),\
 
 db.t_server.f_time_zone.requires = IS_IN_SET(group_time_sone, multiple=False)
 
-####################### This code is fo rthe register page #########################################
+####################### This code is for the register page #########################################
 if settings.check_if_user and settings.login_method == 'local' and request.args(0) != 'register':
 	check_if_empty = db(db.auth_user.id>0).select()
     	if not check_if_empty:
