@@ -54,7 +54,7 @@
 
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-		<h3 id="myModalLabel">Server XXX</h3>
+		<h3 id="myModalLabel"></h3>
 		    <div class="btn-group">
 			<div id="button_modals" ></div>
 			    
@@ -124,7 +124,7 @@ function loadFiles()
 		    result.f_name,
 		    result.f_project,
 		    result.f_time_zone,
-		    '<button class="btn btn-mini" type="button" onclick=load_plugin_project('+result.id+',"serverXXX")>Show Options</button>',])
+		    '<button class="btn btn-mini" type="button" onclick=load_plugin_project('+result.id+',"'+result.f_name+'")>Show Options</button>',])
 		);})});
 }
 
@@ -145,12 +145,14 @@ function load_plugin_project(server_id, server_name)
 
 		);})});
 
-
-	$("#server_id").append("Option list for: "+server_name);
+	$("#server_id .server_id").remove();
+	$("#server_id").append('<div class="server_id">Option list for: '+server_name+'</div>');
 
 	//Create the button inthe index to create the modal and the graph
+	$("#button_plugins > button").remove();
 	$("#button_plugins").append('<button href="#myModal" role="button" data-toggle="modal" class="btn" type="button" onclick=show_graph('+server_id+');>Show Graphs</button>');
 
+	$("#button_modals > button").remove();
 	//Create the buttons in the modal to choose day, hour, week, etc
 	buttons='<button onclick=show_graph('+server_id+',"hour"); class="btn">H</button>'
 	buttons+='<button onclick=show_graph('+server_id+',"day"); class="btn">D</button>'
@@ -158,6 +160,10 @@ function load_plugin_project(server_id, server_name)
 	buttons+='<button onclick=show_graph('+server_id+',"month"); class="btn">M</button>'
 	buttons+='<button onclick=show_graph('+server_id+',"year"); class="btn">Y</button>'
 	$("#button_modals").append(buttons);
+	
+	$("#myModalLabel .myModalLabel").remove();
+	$("#myModalLabel").append('<div class="myModalLabel">'+server_name+' server </div>');
+
 }
 
 

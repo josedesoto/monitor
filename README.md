@@ -56,6 +56,11 @@ For more configurations chenck the file: modules/appsettings.py
 In this file you can configure the aplication to use Mysql or SQLite and the login system (local, ldap or CAS).
 
 
+## How to update between versions:
+
+Follow the installation before with the new version. Overwrite your configure file: appsettings.py and be sure you have the option settings.migrate = False. This mean, that the application will not try to create again the tables in the database. You have created with the version before.
+
+
 ## How to check the installations:
 
 In your browser type:

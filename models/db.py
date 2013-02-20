@@ -72,7 +72,7 @@ elif settings.login_method == 'CAS':
 crud, service, plugins = Crud(db), Service(), PluginManager()
 
 ## create all tables needed by auth if not custom tables
-auth.define_tables(username=True, signature=False)
+auth.define_tables(username=True, signature=False, migrate=settings.migrate)
 
 #We dont create a group for each user
 auth.settings.create_user_groups=False
@@ -118,7 +118,7 @@ db.define_table('t_project',
     format='%(f_name)s',
     migrate=settings.migrate)
 
-db.define_table('t_project_archive',db.t_project,Field('current_record','reference t_project',readable=False,writable=False))
+db.define_table('t_project_archive',db.t_project,Field('current_record','reference t_project',readable=False,writable=False), migrate=settings.migrate)
 
 ########################################
 db.define_table('t_server',
@@ -129,7 +129,7 @@ db.define_table('t_server',
     format='%(f_name)s',
     migrate=settings.migrate)
 
-db.define_table('t_server_archive',db.t_server,Field('current_record','reference t_server',readable=False,writable=False))
+db.define_table('t_server_archive',db.t_server,Field('current_record','reference t_server',readable=False,writable=False), migrate=settings.migrate)
 
 group_time_sone = [('Africa/Cairo'),\
 ('Africa/Casablanca'),\
